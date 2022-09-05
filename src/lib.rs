@@ -704,7 +704,7 @@ where
         match &mut self.continuation_read {
             Some(continuation_read) => {
                 let result = read_continuation(continuation_read, from_buffer, to_buffer);
-                if result.is_fin_bit_set {
+                if result.is_fin_bit_set || continuation_read.count == 0 {
                     self.continuation_read = None;
                 }
                 Ok(result)
